@@ -83,6 +83,26 @@
       ],
       "problemMatcher": "$msCompile",
       "isBackground": true
+    },
+    {
+      "label": "copy-frontend-to-wwwroot",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-Command",
+        "if (Test-Path '${workspaceFolder}/backend/wwwroot') { Remove-Item -Recurse -Force '${workspaceFolder}/backend/wwwroot' }; New-Item -ItemType Directory -Force -Path '${workspaceFolder}/backend/wwwroot' | Out-Null; Copy-Item -Recurse '${workspaceFolder}/frontend/dist/*' '${workspaceFolder}/backend/wwwroot/'"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "build-production",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "build-frontend",
+        "copy-frontend-to-wwwroot",
+        "build-backend"
+      ],
+      "problemMatcher": []
     }
   ]
 }

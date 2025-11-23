@@ -9,7 +9,7 @@ function App() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Document Search App
+            My Document Search App
           </Typography>
         </Toolbar>
       </AppBar>

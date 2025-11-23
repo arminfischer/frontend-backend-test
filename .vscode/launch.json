@@ -2,10 +2,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Backend + Frontend",
+      "name": "Full Stack (Dev Mode)",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build-backend",
+      "preLaunchTask": "start-frontend",
       "program": "${workspaceFolder}/backend/bin/Debug/net9.0/SearchApp.dll",
       "args": [],
       "cwd": "${workspaceFolder}/backend",
@@ -13,17 +13,25 @@
       "serverReadyAction": {
         "action": "openExternally",
         "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
-        "uriFormat": "http://localhost:3000"
+        "uriFormat": "%s"
       },
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "launchBrowser": {
+        "enabled": true,
+        "args": "${auto-detect-url}",
+        "windows": {
+          "command": "cmd.exe",
+          "args": "/C start http://localhost:3000"
+        }
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
       }
     },
     {
-      "name": "Launch Backend Only",
+      "name": "Backend Only (Dev Mode)",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-backend",
@@ -34,19 +42,24 @@
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    }
-  ],
-  "compounds": [
+    },
     {
-      "name": "Full Stack (Backend + Frontend Dev Server)",
-      "configurations": ["Launch Backend Only"],
-      "preLaunchTask": "start-frontend",
-      "presentation": {
-        "hidden": false,
-        "group": "",
-        "order": 1
+      "name": "Production Simulation",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-production",
+      "program": "${workspaceFolder}/backend/bin/Debug/net9.0/SearchApp.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/backend",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s"
       },
-      "stopAll": true
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
     }
   ]
 }
