@@ -1,0 +1,10 @@
+bin/
+obj/
+dist/
+node_modules/
+.vs/
+.vscode/settings.json
+*.user
+*.suo
+*.cache
+.DS_Store
