@@ -27,34 +27,14 @@ public class Program
         // Configure the HTTP request pipeline.
         app.UseCors();
 
-        // Serve static files from frontend build (only in production)
-        var frontendPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "frontend", "dist");
-        if (Directory.Exists(frontendPath))
-        {
-            app.UseStaticFiles(
-                new StaticFileOptions
-                {
-                    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-                        frontendPath
-                    ),
-                    RequestPath = "",
-                }
-            );
-
-            // Fallback to index.html for SPA routing
-            app.MapFallbackToFile(
-                "index.html",
-                new StaticFileOptions
-                {
-                    FileProvider = new Microsoft.Extensions.FileProviders.PhysicalFileProvider(
-                        frontendPath
-                    ),
-                }
-            );
-        }
+        // Serve static files from wwwroot (production build)
+        app.UseStaticFiles();
 
         app.UseRouting();
         app.MapControllers();
+
+        // Fallback to index.html for SPA routing (when frontend is built to wwwroot)
+        app.MapFallbackToFile("index.html");
 
         app.Run();
     }

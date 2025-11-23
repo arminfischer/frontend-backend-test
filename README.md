@@ -146,6 +146,8 @@ dotnet publish -c Release
    dotnet publish -c Release -o ./publish
    ```
 
+   The published backend now includes the frontend files in `wwwroot/` and serves everything as a single application.
+
 4. **Deploy to Azure:**
 
    ```powershell
@@ -177,10 +179,13 @@ dotnet publish -c Release
 ### Alternative: Deploy via VS Code
 
 1. Install the [Azure App Service extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice)
-2. Build frontend and copy to backend wwwroot (steps 1-2 above)
-3. Right-click on the `backend` folder in VS Code
-4. Select "Deploy to Web App..."
-5. Follow the prompts to create/select an Azure Web App
+2. Build frontend: `cd frontend && npm run build`
+3. Copy to backend: `Copy-Item -Path frontend/dist/* -Destination backend/wwwroot/ -Recurse -Force`
+4. Right-click on the `backend` folder in VS Code
+5. Select "Deploy to Web App..."
+6. Follow the prompts to create/select an Azure Web App
+
+The backend serves both the API (at `/api/*`) and the React frontend (from `wwwroot/`) as a single unified application.
 
 ## Development Tips
 
